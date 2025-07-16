@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>statsManager - Roblox Studio Module</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .prose pre {
+      background-color: #1f2937;
+      color: #e5e7eb;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    .prose code {
+      background-color: #f3f4f6;
+      color: #1f2937;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Navigation -->
+  <nav class="bg-blue-600 text-white p-4 sticky top-0 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">statsManager</h1>
+      <div class="space-x-4">
+        <button onclick="showSection('home')" class="hover:underline">Home</button>
+        <button onclick="showSection('documentation')" class="hover:underline">Documentation</button>
+        <button onclick="showSection('about')" class="hover:underline">About Us</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto p-6">
+    <!-- Home Section -->
+    <section id="home" class="section active prose max-w-none">
+      <h2 class="text-3xl font-bold mb-4">Welcome to statsManager</h2>
+      <p class="text-lg mb-4">A lightweight and efficient player state management system for Roblox Studio, written in Luau by <strong>flashy3467dieux</strong>.</p>
+      <p class="mb-4">The <code>statsManager</code> module allows developers to assign, retrieve, and clear individual player states based on their <code>UserId</code>. It integrates <strong>SignalPlus</strong> for real-time event handling, enabling reactive gameplay features.</p>
+      <div class="bg-blue-100 p-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Key Features</h3>
+        <ul class="list-disc pl-6">
+          <li>Store and retrieve player states (e.g., "Running", "Idle")</li>
+          <li>Real-time state change events with SignalPlus</li>
+          <li>Memory safety with state cleanup</li>
+          <li>Type checking for valid state inputs</li>
+        </ul>
+      </div>
+      <div class="mt-4 space-x-4">
+        <button onclick="showSection('documentation')" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Explore Documentation</button>
+        <a href="https://github.com/TheFlash3467/statManager" target="_blank" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Download Module</a>
+      </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="section prose max-w-none">
+      <h2 class="text-3xl font-bold mb-4">Documentation</h2>
+      
+      <h3 class="text-2xl font-semibold mb-2">Overview</h3>
+      <p class="mb-4">The <code>statsManager</code> module, created by <strong>flashy3467dieux</strong>, is a lightweight and efficient player state management system for Roblox Studio, written in Luau. It allows developers to assign, retrieve, and clear individual player states based on their <code>UserId</code>. The module integrates <strong>SignalPlus</strong> for real-time event handling, enabling reactive gameplay features when a player's state changes.</p>
+      <p class="mb-4">Source: <a href="https://devforum.roblox.com/t/signal%EF%BD%9Cinsanely-optimized-script-signal/3552231" class="text-blue-600 hover:underline">SignalPlus on Roblox DevForum</a></p>
+
+      <h3 class="text-2xl font-semibold mb-2">Features</h3>
+      <ul class="list-disc pl-6 mb-4">
+        <li><strong>State Management</strong>: Store and retrieve player states (e.g., "Running", "Idle") using <code>UserId</code> as the key.</li>
+        <li><strong>Real-Time Updates</strong>: Uses <code>SignalPlus</code> to fire events whenever a player's state changes.</li>
+        <li><strong>Memory Safety</strong>: Includes a method to clear player states to prevent memory leaks.</li>
+        <li><strong>Type Checking</strong>: Ensures valid input for state updates with warning messages for invalid inputs.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold mb-2">Installation</h3>
+      <ol class="list-decimal pl-6 mb-4">
+        <li>Download the <code>statsManager</code> module and place it in your Roblox Studio project (e.g., in <code>ServerScriptService</code> or <code>ReplicatedStorage</code>).</li>
+        <li>Ensure the <code>SignalPlus</code> module is included in your project and accessible to <code>statsManager</code>.</li>
+        <li>Require the module in your script:</li>
+      </ol>
+      <pre><code class="language-lua">local statsManager = require(path.to.statsManager)</code></pre>
+
+      <h3 class="text-2xl font-semibold mb-2">API Reference</h3>
+      
+      <h4 class="text-xl font-semibold mb-2"><code>statsManager.setStat(player: Player, stat: string)</code></h4>
+      <p class="mb-2">Sets the current state of a player and triggers a change signal.</p>
+      <ul class="list-disc pl-6 mb-2">
+        <li><strong>Parameters</strong>:
+          <ul class="list-circle pl-6">
+            <li><code>player</code>: The <code>Player</code> instance whose state is being set.</li>
+            <li><code>stat</code>: A string representing the new state (e.g., "Running", "Jumping").</li>
+          </ul>
+        </li>
+        <li><strong>Behavior</strong>: If <code>stat</code> is not a string, a warning is issued, and no state is set.</li>
+      </ul>
+
+      <h4 class="text-xl font-semibold mb-2"><code>statsManager.getStat(player: Player): string</code></h4>
+      <p class="mb-2">Retrieves the current state of a player.</p>
+      <ul class="list-disc pl-6 mb-2">
+        <li><strong>Parameters</strong>:
+          <ul class="list-circle pl-6">
+            <li><code>player</code>: The <code>Player</code> instance whose state is being queried.</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: The player's state as a string, or <code>"Idle"</code> if no state is set.</li>
+        <li><strong>Behavior</strong>: Issues a warning if the player has no state.</li>
+      </ul>
+
+      <h4 class="text-xl font-semibold mb-2"><code>statsManager.removeStat(player: Player)</code></h4>
+      <p class="mb-2">Clears the saved state of a player to prevent memory leaks.</p>
+      <ul class="list-disc pl-6 mb-2">
+        <li><strong>Parameters</strong>:
+          <ul class="list-circle pl-6">
+            <li><code>player</code>: The <code>Player</code> instance whose state should be removed.</li>
+          </ul>
+        </li>
+        <li><strong>Usage</strong>: Call this when a player leaves the game.</li>
+      </ul>
+
+      <h4 class="text-xl font-semibold mb-2"><code>statsManager.onStatChanged(callback: (Player, string) -> ())</code></h4>
+      <p class="mb-2">Connects a callback function to handle state change events.</p>
+      <ul class="list-disc pl-6 mb-2">
+        <li><strong>Parameters</strong>:
+          <ul class="list-circle pl-6">
+            <li><code>callback</code>: A function that receives the <code>Player</code> instance and the new state string.</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: An <code>RBXScriptConnection</code> to allow disconnection of the callback.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold mb-2">Usage Examples</h3>
+
+      <h4 class="text-xl font-semibold mb-2">Example 1: Setting and Retrieving Player States</h4>
+      <pre><code class="language-lua">
+local statsManager = require(game.ServerScriptService.statsManager)
+
+-- Set a player's state
+local player = game.Players:GetPlayerByUserId(123456)
+statsManager.setStat(player, "Running")
+
+-- Retrieve the player's state
+local currentState = statsManager.getStat(player)
+print(currentState) -- Output: Running
+
+-- Set an invalid state (will excepcional)
+statsManager.setStat(player, 123) -- Warning: The stat entered in argument isn't a string
+</code></pre>
+
+      <h4 class="text-xl font-semibold mb-2">Example 2: Listening for State Changes</h4>
+      <pre><code class="language-lua">
+local statsManager = require(game.ServerScriptService.statsManager)
+
+-- Connect to state changes
+statsManager.onStatChanged(function(player, newState)
+    print(player.Name .. " changed state to: " .. newState)
+end)
+
+-- Change a player's state
+local player = game.Players:GetPlayerByUserId(123456)
+statsManager.setStat(player, "Jumping") -- Output: PlayerName changed state to: Jumping
+</code></pre>
+
+      <h4 class="text-xl font-semibold mb-2">Example 3: Cleaning Up When a Player Leaves</h4>
+      <pre><code class="language-lua">
+local statsManager = require(game.ServerScriptService.statsManager)
+local Players = game:GetService("Players")
+
+Players.PlayerRemoving:Connect(function(player)
+    statsManager.removeStat(player)
+    print("Removed state for " .. player.Name)
+end)
+</code></pre>
+
+      <h3 class="text-2xl font-semibold mb-2">Notes</h3>
+      <ul class="list-disc pl-6 mb-4">
+        <li>Ensure <code>SignalPlus</code> is properly configured in your project for event handling.</li>
+        <li>Always call <code>removeStat</code> when a player leaves to avoid memory leaks.</li>
+        <li>The module assumes states are strings for simplicity and consistency.</li>
+        <li>For large-scale projects, consider pooling states to optimize performance further.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold mb-2">Contributing</h3>
+      <p class="mb-4">Feel free to contribute to the module by submitting feedback or improvements to <strong>flashy3467dieux</strong> on the <a href="https://devforum.roblox.com" class="text-blue-600 hover:underline">Roblox DevForum</a> or via the module's source repository (if available).</p>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section prose max-w-none">
+      <h2 class="text-3xl font-bold mb-4">About Us</h2>
+      <p class="text-lg mb-4">The <code>statsManager</code> module was created by <strong>flashy3467dieux</strong>, a dedicated Roblox developer with a passion for building high-performance tools for the Roblox Studio community.</p>
+      <p class="mb-4">With a focus on simplicity, efficiency, and real-time functionality, flashy3467dieux designed <code>statsManager</code> to empower developers to create dynamic and responsive gameplay experiences. By leveraging <strong>SignalPlus</strong>, the module ensures seamless state management for players, making it a valuable asset for any Roblox project.</p>
+      <p class="mb-4">Whether you're building a small game or a large-scale experience, flashy3467dieux aims to provide tools that are easy to integrate and optimize performance. The <code>statsManager</code> module reflects this commitment to quality and usability.</p>
+      <p>Contact: Reach out via the <a href="https://devforum.roblox.com" class="text-blue-600 hover:underline">Roblox DevForum</a> for support, feedback, or collaboration opportunities.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white p-4 text-center">
+    <p>&copy; 2025 flashy3467dieux. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Section Navigation -->
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
